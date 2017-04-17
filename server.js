@@ -14,6 +14,7 @@ var router = express.Router();
 var port = process.env.API_PORT || 3001;
 
 //db.configure
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://chadd980:bakura@ds161210.mlab.com:61210/merncommentbox')
 
 //now we should configure the API to use bodyParser and look for JSON data in the request body
@@ -69,7 +70,7 @@ router.route('/comments')
         if (err)
           res.send(err);
         (req.body.author) ? comment.author = req.body.author : null;
-        (req.params.text) ? comment.text = req.body.text : null;
+        (req.body.text) ? comment.text = req.body.text : null;
         comment.save(function(err) {
           if (err)
             res.send(err);

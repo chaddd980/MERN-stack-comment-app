@@ -5,11 +5,12 @@ import marked from 'marked';
 class Comment extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state= {
       toBeUpdated: false,
       author: '',
       text: ''
     };
+    //binding all our functions to this class
     this.deleteComment = this.deleteComment.bind(this);
     this.updateComment = this.updateComment.bind(this);
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
@@ -18,15 +19,18 @@ class Comment extends Component {
   }
   updateComment(e) {
     e.preventDefault();
-    this.setState({toBeUpdated: !this.state.toBeUpdated});
+    //brings up the update field when we click on the update link.
+    this.setState({ toBeUpdated: !this.state.toBeUpdated });
   }
   handleCommentUpdate(e) {
     e.preventDefault();
-    let id = this.props.uniqueID
+    let id = this.props.uniqueID;
+    //if author or text changed, set it. if not, leave null and our PUT request
+    //will ignore it.
     let author = (this.state.author) ? this.state.author : null;
     let text = (this.state.text) ? this.state.text : null;
-    let comment = {author: author, text: text};
-    this.props.onCommentUpdate(id, comment)
+    let comment = { author: author, text: text};
+    this.props.onCommentUpdate(id, comment);
     this.setState({
       toBeUpdated: !this.state.toBeUpdated,
       author: '',
@@ -37,13 +41,13 @@ class Comment extends Component {
     e.preventDefault();
     let id = this.props.uniqueID;
     this.props.onCommentDelete(id);
-    console.log('oops deleted')
-  }
-  handleAuthorChange(e) {
-    this.setState({author: e.target.value});
+    console.log('oops deleted');
   }
   handleTextChange(e) {
-    this.setState({ text: e.target.value})
+    this.setState({ text: e.target.value });
+  }
+  handleAuthorChange(e) {
+    this.setState({ author: e.target.value });
   }
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
