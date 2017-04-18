@@ -15,7 +15,7 @@ var port = process.env.API_PORT || 3001;
 
 //db.configure
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://chadd980:bakura@ds161210.mlab.com:61210/merncommentbox')
+mongoose.connect(process.env.MERN_COMMENT_URI)
 
 //now we should configure the API to use bodyParser and look for JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: true }));
